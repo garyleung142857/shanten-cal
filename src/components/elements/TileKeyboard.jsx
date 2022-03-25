@@ -48,12 +48,23 @@ const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
         onPress={() => setSelectedValue('zi')}
       ></TextButton>
     </View>
-    <View style={styles.keyboardRow}>
-      <TextButton
-        btnValue={'delete'}
-        textLabel={'取消'}
-        onPress={() => onPress('Delete')}
-      ></TextButton>
+    <View style={[styles.keyboardRow, {flex: 2}]}>
+      <View style={{flex: 1}}>
+        <View style={styles.keyboardRow}>
+          <TextButton
+            btnValue={'clear'}
+            textLabel={'清除'}
+            onPress={() => onPress('Clear')}
+          ></TextButton>
+        </View>
+        <View style={styles.keyboardRow}>
+          <TextButton
+            btnValue={'delete'}
+            textLabel={'取消'}
+            onPress={() => onPress('Delete')}
+          ></TextButton>
+        </View>
+      </View>
       <TextButton
         btnValue={'enter'}
         textLabel={'確定'}
@@ -85,7 +96,7 @@ const styles = StyleSheet.create({
   },
   keyboardSuitContainer: {
     width: Math.min(SIZE * 0.6, 200),
-    height: Math.min(HEIGHT * 0.3, 250),
+    height: Math.min(HEIGHT * 0.4, 250),
     padding: 5,
     backgroundColor: 'skyblue'
   },
@@ -97,7 +108,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     width: Math.min(SIZE * 0.4, 150),
-    height: Math.min(HEIGHT * 0.3, 250),
+    height: Math.min(HEIGHT * 0.4, 250),
     padding: 5,
     backgroundColor: 'aliceblue'
   },

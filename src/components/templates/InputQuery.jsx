@@ -15,6 +15,8 @@ const handleInput = (queryHand, setQueryHand, input) => {
     if (queryHand.length > 0){
       setQueryHand(queryHand.slice(0, -1))
     }
+  } else if (input === 'Clear'){
+    setQueryHand([])
   } else {
     setQueryHand([...queryHand, input])
   }
