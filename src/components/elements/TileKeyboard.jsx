@@ -22,7 +22,6 @@ const TilesPane = ({suit, onPress}) => {
 
 
 const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
-  const buttons = [['man', 'pin'], ['sou', 'zi']]
   return <View style={styles.buttonContainer}>
     <View style={styles.keyboardRow}>
       <TextButton

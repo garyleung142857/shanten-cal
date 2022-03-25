@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 
 import TileKeyboard from '../elements/TileKeyboard';
 import Hand from '../elements/Hand';
@@ -7,10 +7,14 @@ import Hand from '../elements/Hand';
 import { sortTiles } from '../../lib/functions/hands';
 import { tilesQuery } from '../../lib/cal/InOut'
 
-const handleInput = (queryHand, setQueryHand, input) => {
+const handleInput = (queryHand, setQueryHand, nav, input) => {
   if (input === 'Enter'){
     sortTiles(queryHand)
     setQueryHand([...queryHand])
+    tilesQuery(queryHand, 'Riichi').then(result => {
+      // console.log(result)
+      nav('Result', {result: result})
+    }, err => {Alert.alert('Error', err)})
   } else if (input === 'Delete'){
     if (queryHand.length > 0){
       setQueryHand(queryHand.slice(0, -1))
@@ -20,10 +24,11 @@ const handleInput = (queryHand, setQueryHand, input) => {
   } else {
     setQueryHand([...queryHand, input])
   }
+  return true
 }
 
 
-export default InputQuery = ({}) => {
+export default InputQuery = ({navigation}) => {
   const [queryHand, setQueryHand] = useState([])
 
   return <View style={styles.inputQuery}>
@@ -32,7 +37,9 @@ export default InputQuery = ({}) => {
     </View>
     <View style={styles.keyboard}>
       <TileKeyboard
-        handleInput={(input) => handleInput(queryHand, setQueryHand, input)}
+        handleInput={(input) => handleInput(
+          queryHand, setQueryHand, navigation.navigate, input
+        )}
       />
     </View>
   </View>
@@ -46,7 +53,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   hand: {
-    alignSelf: 'center'
+    position: 'absolute',
+    top: 5
   },
   keyboard: {
     position: 'absolute',
