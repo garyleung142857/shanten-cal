@@ -4,9 +4,13 @@ import { View, StyleSheet } from 'react-native'
 import TileKeyboard from '../elements/TileKeyboard';
 import Hand from '../elements/Hand';
 
+import { sortTiles } from '../../lib/functions/hands';
+import { tilesQuery } from '../../lib/cal/InOut'
+
 const handleInput = (queryHand, setQueryHand, input) => {
   if (input === 'Enter'){
-    setQueryHand([])
+    sortTiles(queryHand)
+    setQueryHand([...queryHand])
   } else if (input === 'Delete'){
     if (queryHand.length > 0){
       setQueryHand(queryHand.slice(0, -1))
