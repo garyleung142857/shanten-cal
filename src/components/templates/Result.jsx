@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 
+import Hand from '../elements/Hand'
 import ResultEntry from '../elements/ResultEntry'
-
-import { tilesQuery } from '../../lib/cal/InOut'
 
 export default Result = ({ navigation, route}) => {
   let result = route.params.result
@@ -15,12 +14,23 @@ export default Result = ({ navigation, route}) => {
 
   // console.log(result)
   return <>
-    {result.map((r, idx) => {
-      return <ResultEntry
-        tile={r.tile}
-        analysis={r.analysis}
-        key={idx}
-      />
-    })}
-  </>
+    <View style={styles.hand}>
+      <Hand tiles={route.params.query} />
+    </View>
+    <ScrollView>
+      {result.map((r, idx) => {
+        return <ResultEntry
+          tile={r.tile}
+          analysis={r.analysis}
+          key={idx}
+        />
+      })}
+    </ScrollView>
+  </> 
 }
+
+const styles = StyleSheet.create({
+  hand: {
+    
+  },
+})

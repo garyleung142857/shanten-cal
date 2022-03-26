@@ -8,9 +8,7 @@ import { SIZE, HEIGHT, MAX_TILES, MAX_A_KIND } from '../../constants/Constants';
 export default Hand = ({tiles}) => {
   return <View style={styles.hand}>
     {tiles.map((tileName, idx) => {
-      return <View key={idx} style={styles.tile}> 
-        <Tile tileName={tileName} />
-      </View>
+      return <Tile key={idx} tileName={tileName} />
     })}
   </View>
 }
@@ -29,10 +27,5 @@ const styles = StyleSheet.create({
     height: 70,
     width: SIZE - 10,
     alignItems: 'flex-end'
-  },
-  tile: {
-    flexShrink: 1,
-    flexGrow: 0,
-    aspectRatio: 0.75
   }
 })
