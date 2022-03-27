@@ -8,7 +8,7 @@ export default ResultEntry = ({tile, analysis}) => {
   let s1 = ''
   if (analysis.shanten == 0){
     if (analysis.ukeire > 0){
-      s1 = `聽牌 聽${analysis.ukeire}張` 
+      s1 = `聽${analysis.ukeire}張` 
     } else {
       s1 = `空聽`
     }
@@ -16,7 +16,7 @@ export default ResultEntry = ({tile, analysis}) => {
       s1 += ` 改良平均${analysis.avgWithImprovment.toFixed(2)}張`
     }
   } else {
-    s1 = `${analysis.shanten}向聽 入章${analysis.ukeire}張`
+    s1 = `入章${analysis.ukeire}張`
     if (analysis.avgWithImprovment > analysis.ukeire){
       s1 += ` 改良平均${analysis.avgWithImprovment.toFixed(2)}張`
     }

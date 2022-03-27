@@ -5,21 +5,40 @@ import Hand from '../elements/Hand'
 import ResultEntry from '../elements/ResultEntry'
 
 export default Result = ({ navigation, route}) => {
-  let result = route.params.result
-  let agari = false
+  const result = route.params.result
+  const resShanten = result['shanten']
+  const agari = resShanten === -1  // already a winning hand
+  let optDiscards = []  // discards with shanten being optimal
+  let infDiscards = []  // discards with shanten not being optimal
+
   if (result['tiles']){
-    result = result['tiles']
+    result['tiles'].forEach(r => {
+      if (r.analysis.shanten == resShanten){
+        optDiscards.push(r)
+      } else {
+        infDiscards.push(r)
+      }
+    })
   } else {
-    agari = result['shanten'] === -1  // already a winning hand
-    result = [{tile: null, analysis: result}]
+    optDiscards = [{tile: null, analysis: result}]
   }
+  let optShantenStr = resShanten === 0 ? '聽牌' : `${resShanten}向聽`
+  let infShantenStr = infDiscards.length > 0 ? `${resShanten + 1}向聽` : null
   
   return <>
     <View style={styles.hand}>
       <Hand tiles={route.params.query} />
     </View>
     {!agari && <ScrollView>
-      {result.map((r, idx) => {
+      <Text style={styles.shantenText}>{optShantenStr}</Text>
+      {optDiscards.map((r, idx) => {
+        return <ResultEntry
+          tile={r.tile}
+          analysis={r.analysis}
+          key={idx}
+        />})}
+      <Text style={styles.shantenText}>{infShantenStr}</Text>
+      {infDiscards.map((r, idx) => {
         return <ResultEntry
           tile={r.tile}
           analysis={r.analysis}
@@ -41,5 +60,9 @@ const styles = StyleSheet.create({
     padding: 10,
     fontWeight: "700",
     color: 'red'
+  },
+  shantenText: {
+    fontSize: 20,
+    fontWeight: '700'
   }
 })
