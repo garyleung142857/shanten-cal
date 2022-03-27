@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import Tile from './Tile'
 import TextButton from './TextButton'
 
+import { interpolateColor } from '../../lib/functions/colorMixing'
+
 export default ResultEntry = ({tile, analysis}) => {
   let s1 = ''
   if (analysis.shanten == 0){
@@ -26,9 +28,15 @@ export default ResultEntry = ({tile, analysis}) => {
     }
   }
 
+  const backgroundColorStr = interpolateColor(analysis.shanten - 1, analysis.avgNextUkeire, false)
+  const borderColorStr = interpolateColor(analysis.shanten, analysis.ukeire, true)
+
   const [showUL, setShowUL] = useState(false)
 
-  return <View style={[styles.resultEntry]}>
+  return <View style={[
+      styles.resultEntry,
+      {backgroundColor: backgroundColorStr, borderColor: borderColorStr}
+    ]}>
     {tile && <View style={styles.discardTile}><Tile
       tileName={tile}
     /></View>}
@@ -60,8 +68,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: 70,
     borderWidth: 5,
-    borderColor: 'orange',
-    backgroundColor: 'pink',
+    // borderColor: 'rgb(255, 0, 0)',
+    // backgroundColor: 'pink',
     margin: 5
   },
   discardTile:{
