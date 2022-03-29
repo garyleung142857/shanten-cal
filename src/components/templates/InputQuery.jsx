@@ -4,8 +4,6 @@ import { View, StyleSheet, Alert } from 'react-native'
 import TileKeyboard from '../elements/TileKeyboard';
 import Hand from '../elements/Hand';
 
-import { sortTiles } from '../../lib/functions/hands';
-const { tilesQuery } = require('../../lib/cal/InOut')
 
 const handleInput = (queryHand, setQueryHand, nav, input) => {
   if (input === 'Enter'){
@@ -23,8 +21,9 @@ const handleInput = (queryHand, setQueryHand, nav, input) => {
 }
 
 
-export default InputQuery = ({navigation}) => {
-  const [queryHand, setQueryHand] = useState([])
+export default InputQuery = ({navigation, route}) => {
+  const initialHand = route.params ? route.params.query || [] : []
+  const [queryHand, setQueryHand] = useState(initialHand)
 
   return <View style={styles.inputQuery}>
     <View style={styles.hand}>

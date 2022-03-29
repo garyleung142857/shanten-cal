@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, ScrollView, StyleSheet, ActivityIndicator, Alert } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator, Alert, Button } from 'react-native'
 
 import Hand from '../elements/Hand'
 import ResultEntry from '../elements/ResultEntry'
+import TextButton from '../elements/TextButton'
 
 import { sortTiles } from '../../lib/functions/hands';
 const { tilesQuery } = require('../../lib/cal/InOut')
@@ -23,7 +24,11 @@ export default Result = ({ navigation, route}) => {
     tilesQuery(hand).then(r => {
       setResult(r)
     }, err => {
-      Alert.alert('相公', err)  // TODO: Route back to query
+      Alert.alert('相公', err, [{
+        text: '確定',
+        onPress: () => navigation.navigate('InputQuery', {query: route.params.query}),
+        style: 'default'
+      }])
     })
   }, [])
 
@@ -50,7 +55,7 @@ export default Result = ({ navigation, route}) => {
   
     return <>
       <View style={styles.hand}>
-        <Hand tiles={route.params.query} />
+        <Hand tiles={hand} />
       </View>
       {!agari && <ScrollView>
         <Text style={styles.shantenText}>{optShantenStr}</Text>
@@ -71,6 +76,20 @@ export default Result = ({ navigation, route}) => {
       {agari && <Text style={styles.agariText}>
         和牌
       </Text>}
+      <View style={styles.navBtnHolder}>
+        <TextButton
+          onPress={() => navigation.navigate('InputQuery', {query: hand})}
+          textLabel={'重新輸入'}
+        ></TextButton>
+        <TextButton
+          onPress={() => {}}
+          textLabel={'回主目錄'}
+        ></TextButton>
+        <TextButton
+          onPress={() => {}}
+          textLabel={'設定'}
+        ></TextButton>
+      </View>
     </> 
   }
   
@@ -89,5 +108,12 @@ const styles = StyleSheet.create({
   shantenText: {
     fontSize: 20,
     fontWeight: '700'
-  }
+  },
+  navBtnHolder: {
+    height: 50,
+    padding: 5,
+    flexDirection: 'row',
+    flexGrow: 0,
+    backgroundColor: 'darkblue'
+  },
 })
