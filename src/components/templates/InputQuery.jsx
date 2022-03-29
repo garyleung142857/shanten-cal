@@ -9,12 +9,7 @@ const { tilesQuery } = require('../../lib/cal/InOut')
 
 const handleInput = (queryHand, setQueryHand, nav, input) => {
   if (input === 'Enter'){
-    sortTiles(queryHand)
-    setQueryHand([...queryHand])
-    tilesQuery(queryHand, 'Riichi').then(result => {
-      // console.log(result)
-      nav('Result', {query: queryHand, result: result})
-    }, err => {Alert.alert('相公', err)})  // Todo: error string locale
+    nav('Result', {query: queryHand})
   } else if (input === 'Delete'){
     if (queryHand.length > 0){
       setQueryHand(queryHand.slice(0, -1))
