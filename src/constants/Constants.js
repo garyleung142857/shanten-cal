@@ -34,3 +34,20 @@ export const rgbBackground = [
 ]
 
 export const tenpaiBackgroundColor = [255, 255, 100]
+
+
+export const rulesNames = [
+  'Menzu',
+  'HK',
+  'Riichi',
+  'ZungJung',
+  'MCR',
+  'Taiwan',
+  'HKTW'
+]
+
+
+export const langsList = [
+  '中文',
+  'English'
+]

@@ -86,7 +86,7 @@ export default Result = ({ navigation, route}) => {
           textLabel={'回主目錄'}
         ></TextButton>
         <TextButton
-          onPress={() => {}}
+          onPress={() =>  navigation.navigate('Settings')}
           textLabel={'設定'}
         ></TextButton>
       </View>
