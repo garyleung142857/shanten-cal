@@ -1,6 +1,6 @@
 import React, { useContext, useState, useCallback } from 'react'
 import { View, Text, StyleSheet, Switch } from 'react-native'
-import { rulesNames, langsList } from '../../constants/Constants'
+import { rulesNames, langOpts } from '../../constants/Constants'
 import DropDownPicker from 'react-native-dropdown-picker'
 
 import AppContext from '../../lib/AppContext'
@@ -14,16 +14,17 @@ const TextLabel = ({text}) => {
 
 export default Settings = ({navigation, route}) => {
   
-  const settings = useContext(AppContext)
-  
+  const context = useContext(AppContext)
+  const t = context.cDict
+
   const [ddRulesOpen, setddRulesOpen] = useState(false);
   const [rns, setRns] = useState(rulesNames.map(name => {
     return {label: name, value: name}
   }));
 
   const [ddLangsOpen, setddLangsOpen] = useState(false)
-  const [langs, setLangs] = useState(langsList.map(name => {
-    return {label: name, value: name}
+  const [langs, setLangs] = useState(Object.entries(langOpts).map(([k, v]) => {
+    return {label: v, value: k}
   }))
   
   const onddLangsOpen = useCallback(() => {
@@ -36,17 +37,17 @@ export default Settings = ({navigation, route}) => {
 
   return (
     <View>
-      <Text style={styles.title}>設定</Text>
+      <Text style={styles.title}>{t.settings}</Text>
       <View style={styles.settingItem}>
         <TextLabel text={'規則'}/>
         <DropDownPicker
           containerStyle={{width: 150}}
           open={ddRulesOpen}
           onOpen={onddRulesOpen}
-          value={settings.settingRuleName}
+          value={context.cRuleName}
           items={rns}
           setOpen={setddRulesOpen}
-          setValue={settings.setRuleName}
+          setValue={context.setRuleName}
           setItems={setRns}
           zIndex={3000}
           zIndexInverse={1000}
@@ -55,15 +56,15 @@ export default Settings = ({navigation, route}) => {
       <View style={styles.settingItem}>
         <TextLabel text={'夜間模式'} />
         <Switch
-          value={settings.settingDarkMode}
-          onChange={settings.toggleDarkMode}
+          value={context.cDarkMode}
+          onChange={context.toggleDarkMode}
         />
       </View>
       <View style={styles.settingItem}>
         <TextLabel text={'詳細解釋'}/>
         <Switch
-          value={settings.settingVerbose}
-          onChange={settings.toggleVerbose}
+          value={context.cVerbose}
+          onChange={context.toggleVerbose}
         />
       </View>
       <View style={styles.settingItem}>
@@ -72,10 +73,10 @@ export default Settings = ({navigation, route}) => {
           containerStyle={{width: 150}}
           open={ddLangsOpen}
           onOpen={onddLangsOpen}
-          value={settings.settingLocale}
+          value={context.cLocale}
           items={langs}
           setOpen={setddLangsOpen}
-          setValue={settings.setLocale}
+          setValue={context.setLocale}
           setItems={setLangs}
           zIndex={1000}
           zIndexInverse={3000}

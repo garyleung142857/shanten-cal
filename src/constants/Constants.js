@@ -47,7 +47,7 @@ export const rulesNames = [
 ]
 
 
-export const langsList = [
-  '中文',
-  'English'
-]
+export const langOpts = {
+  en: 'English',
+  tc: '中文'
+}
