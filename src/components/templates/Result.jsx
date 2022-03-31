@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, Alert, Button } from 'react-native'
 
 import Hand from '../elements/Hand'
 import ResultEntry from '../elements/ResultEntry'
 import TextButton from '../elements/TextButton'
 
+import AppContext from '../../lib/AppContext'
+
 import { sortTiles } from '../../lib/functions/hands';
 const { tilesQuery } = require('../../lib/cal/InOut')
 
 export default Result = ({ navigation, route}) => {
-  // const result = route.params.result
+  
+  const context = useContext(AppContext)
+  const t = context.cDict
+
   let agari
   let optShantenStr
   let infShantenStr
@@ -79,15 +84,15 @@ export default Result = ({ navigation, route}) => {
       <View style={styles.navBtnHolder}>
         <TextButton
           onPress={() => navigation.navigate('InputQuery', {query: hand})}
-          textLabel={'重新輸入'}
+          textLabel={t.newHand}
         ></TextButton>
         <TextButton
           onPress={() => {}}
-          textLabel={'回主目錄'}
+          textLabel={t.toMenu}
         ></TextButton>
         <TextButton
           onPress={() =>  navigation.navigate('Settings')}
-          textLabel={'設定'}
+          textLabel={t.settings}
         ></TextButton>
       </View>
     </> 

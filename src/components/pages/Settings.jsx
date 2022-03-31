@@ -39,7 +39,7 @@ export default Settings = ({navigation, route}) => {
     <View>
       <Text style={styles.title}>{t.settings}</Text>
       <View style={styles.settingItem}>
-        <TextLabel text={'規則'}/>
+        <TextLabel text={t.rule}/>
         <DropDownPicker
           containerStyle={{width: 150}}
           open={ddRulesOpen}
@@ -54,21 +54,21 @@ export default Settings = ({navigation, route}) => {
         />
       </View>
       <View style={styles.settingItem}>
-        <TextLabel text={'夜間模式'} />
+        <TextLabel text={t.darkMode} />
         <Switch
           value={context.cDarkMode}
           onChange={context.toggleDarkMode}
         />
       </View>
       <View style={styles.settingItem}>
-        <TextLabel text={'詳細解釋'}/>
+        <TextLabel text={t.verbose}/>
         <Switch
           value={context.cVerbose}
           onChange={context.toggleVerbose}
         />
       </View>
       <View style={styles.settingItem}>
-        <TextLabel text={'語言'}/>
+        <TextLabel text={t.language}/>
         <DropDownPicker
           containerStyle={{width: 150}}
           open={ddLangsOpen}

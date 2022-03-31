@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Alert } from 'react-native'
 
 import TileKeyboard from '../elements/TileKeyboard';

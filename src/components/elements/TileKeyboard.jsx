@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import TileButton from './TileButton';
 import TextButton from './TextButton';
 import BOARDS from '../../constants/BoardsLayout'
 import { SIZE, HEIGHT } from '../../constants/Constants'
+
+import AppContext from '../../lib/AppContext'
 
 
 const TilesPane = ({suit, onPress}) => {
@@ -22,28 +24,32 @@ const TilesPane = ({suit, onPress}) => {
 
 
 const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
+  
+  const context = useContext(AppContext)
+  const t = context.cDict
+  
   return <View style={styles.buttonContainer}>
     <View style={styles.keyboardRow}>
       <TextButton
         btnValue={'man'}
-        textLabel={'萬'}
+        textLabel={t.manzu}
         onPress={() => setSelectedValue('man')}
       ></TextButton>
       <TextButton
         btnValue={'pin'}
-        textLabel={'筒'}
+        textLabel={t.pinzu}
         onPress={() => setSelectedValue('pin')}
       ></TextButton>
     </View>
     <View style={styles.keyboardRow}>
       <TextButton
         btnValue={'sou'}
-        textLabel={'索'}
+        textLabel={t.souzu}
         onPress={() => setSelectedValue('sou')}
       ></TextButton>
       <TextButton
         btnValue={'zi'}
-        textLabel={'字'}
+        textLabel={t.zihai}
         onPress={() => setSelectedValue('zi')}
       ></TextButton>
     </View>
@@ -52,21 +58,21 @@ const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
         <View style={styles.keyboardRow}>
           <TextButton
             btnValue={'clear'}
-            textLabel={'清除'}
+            textLabel={t.clear}
             onPress={() => onPress('Clear')}
           ></TextButton>
         </View>
         <View style={styles.keyboardRow}>
           <TextButton
             btnValue={'delete'}
-            textLabel={'取消'}
+            textLabel={t.delete}
             onPress={() => onPress('Delete')}
           ></TextButton>
         </View>
       </View>
       <TextButton
         btnValue={'enter'}
-        textLabel={'確定'}
+        textLabel={t.enter}
         onPress={() => onPress('Enter')}
       ></TextButton>
     </View>
