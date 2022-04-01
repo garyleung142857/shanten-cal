@@ -29,6 +29,7 @@ export default InputQuery = ({navigation, route}) => {
     <View style={styles.hand}>
       <Hand tiles={queryHand} />
     </View>
+    <View style={{flexGrow: 1}} />
     <View style={styles.keyboard}>
       <TileKeyboard
         handleInput={(input) => handleInput(
@@ -47,11 +48,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   hand: {
-    position: 'absolute',
-    top: 5
+    // position: 'absolute',
+    // top: 5
   },
   keyboard: {
-    position: 'absolute',
-    bottom: 0
+    // position: 'absolute',
+    // bottom: 0
   },
 })

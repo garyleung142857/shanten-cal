@@ -58,11 +58,11 @@ export default Result = ({ navigation, route}) => {
     optShantenStr = resShanten === 0 ? t.tenpai : `${resShanten}${t.shanten}`
     infShantenStr = infDiscards.length > 0 ? `${resShanten + 1}${t.shanten}` : null
   
-    return <>
+    return <View style={styles.result}>
       <View style={styles.hand}>
         <Hand tiles={hand} />
       </View>
-      {!agari && <ScrollView>
+      {!agari && <ScrollView style={styles.resultItems}>
         <Text style={styles.shantenText}>{optShantenStr}</Text>
         {optDiscards.map((r, idx) => {
           return <ResultEntry
@@ -91,18 +91,26 @@ export default Result = ({ navigation, route}) => {
           textLabel={t.toMenu}
         ></TextButton>
         <TextButton
-          onPress={() =>  navigation.navigate('Settings')}
+          onPress={() => navigation.navigate('Settings')}
           textLabel={t.settings}
         ></TextButton>
       </View>
-    </> 
+    </View> 
   }
   
 }
 
 const styles = StyleSheet.create({
+  result: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   hand: {
-    
+
+  },
+  resultItems: {
+    alignSelf: 'stretch'
   },
   agariText: {
     fontSize: 36,
