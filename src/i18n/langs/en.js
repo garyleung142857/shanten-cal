@@ -13,7 +13,17 @@ export default {
   clear: 'Clear',
   delete: 'Delete',
   enter: 'Enter',
+  ok: 'OK',
   tenpai: 'Tenpai',
-  shanten: 'Shanten',
-  detail: 'More'
+  msgKaraten: 'Karaten. ',
+  msgTenpai: 'Waiting {0} tiles. ',
+  msgAvgWithImp: 'With {0} tiles improvement on avg. ',
+  msgUkeire: 'Accepting {0} tiles. ',
+  msgNextUkeire: 'Accepting {0} tiles next shanten on avg. ',
+  msgSpeedRef: 'Speed: {0}% ',
+  msgAgari: 'Winning hand.',
+  shanten: '{0} Shanten',
+  detail: 'More',
+  error: 'Check your hand',
+  nextShanten: 'Next'
 }

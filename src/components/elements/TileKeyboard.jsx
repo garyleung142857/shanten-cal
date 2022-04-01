@@ -60,21 +60,21 @@ const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
         <View style={styles.keyboardRow}>
           <TextButton
             btnValue={'clear'}
-            textLabel={t.clear}
+            iconLabel={'delete-outline'}
             onPress={() => onPress('Clear')}
           ></TextButton>
         </View>
         <View style={styles.keyboardRow}>
           <TextButton
             btnValue={'delete'}
-            textLabel={t.delete}
+            iconLabel={'backspace'}
             onPress={() => onPress('Delete')}
           ></TextButton>
         </View>
       </View>
       <TextButton
         btnValue={'enter'}
-        textLabel={t.enter}
+        iconLabel={'check-bold'}
         onPress={() => onPress('Enter')}
       ></TextButton>
     </View>

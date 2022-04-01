@@ -1,32 +1,72 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
+
 
 import Tile from './Tile'
 import TextButton from './TextButton'
+import Icon from './Icon';
+
+import AppContext from '../../lib/AppContext'
 
 import { interpolateColor } from '../../lib/functions/colorMixing'
 
-export default ResultEntry = ({tile, analysis}) => {
-  let s1 = ''
-  if (analysis.shanten == 0){
-    if (analysis.ukeire > 0){
-      s1 = `聽${analysis.ukeire}張` 
-    } else {
-      s1 = `空聽`
+
+const SymbolicResult = ({a}) => {
+
+  return <Text style={styles.resultText}>
+    {(a.shanten == 0 && a.ukeire == 0) ?
+      <Icon name="checkbox-blank-off-outline" /> :
+      <><Icon name="cards-outline" />{a.ukeire}</>
     }
-    if (analysis.avgWithImprovment > analysis.ukeire){
-      s1 += ` 改良平均${analysis.avgWithImprovment.toFixed(2)}張`
+    {
+      a.avgWithImprovment > a.ukeire &&
+      <>{`(${a.avgWithImprovment.toFixed(2)})`}</>
+    }
+    <>  </>
+    {
+      a.shanten > 0 &&
+      <><Icon name="step-forward" /><Icon name="cards" />
+      {a.avgNextUkeire.toFixed(2)}</>
+    }
+    <>  </>
+    {
+      a.speedRef && 
+      <><Icon name="run-fast" />{a.speedRef.toFixed(2)}%</>
+    }
+  </Text>
+}
+
+const TextResult = ({a, t}) => {
+  let s1 = ''
+  if (a.shanten == 0){
+    if (a.ukeire > 0){
+      s1 = t.msgTenpai.replace('{0}', a.ukeire) 
+    } else {
+      s1 = t.msgKaraten
+    }
+    if (a.avgWithImprovment > a.ukeire){
+      s1 += t.msgAvgWithImp.replace('{0}', a.avgWithImprovment.toFixed(2))
     }
   } else {
-    s1 = `入章${analysis.ukeire}張`
-    if (analysis.avgWithImprovment > analysis.ukeire){
-      s1 += ` 改良平均${analysis.avgWithImprovment.toFixed(2)}張`
+    s1 = t.msgUkeire.replace('{0}', a.ukeire) 
+    if (a.avgWithImprovment > a.ukeire){
+      s1 += t.msgAvgWithImp.replace('{0}', a.avgWithImprovment.toFixed(2))
     }
-    s1 += ` 下一向聽平均入章${analysis.avgNextUkeire.toFixed(2)}張`
-    if (analysis.speedRef){
-      s1 += ` 參考速度${analysis.speedRef.toFixed(2)}`
+    s1 += t.msgNextUkeire.replace('{0}', a.avgNextUkeire.toFixed(2))
+    if (a.speedRef){
+      s1 += t.msgSpeedRef.replace('{0}', a.speedRef.toFixed(2))
     }
   }
+
+  return <Text style={styles.resultText}>
+    {s1}
+  </Text>
+}
+
+export default ResultEntry = ({tile, analysis}) => {
+
+  const context = useContext(AppContext)
+  const t = context.cDict
 
   const backgroundColorStr = interpolateColor(analysis.shanten - 1, analysis.avgNextUkeire, false)
   const borderColorStr = interpolateColor(analysis.shanten, analysis.ukeire, true)
@@ -41,9 +81,7 @@ export default ResultEntry = ({tile, analysis}) => {
       tileName={tile}
     /></View>}
     <View style={styles.resultMiddle}>
-      <Text numberOfLines={3} style={styles.resultText}>
-        {s1}
-      </Text>
+      {context.cVerbose ? <TextResult a={analysis} t={t} />: <SymbolicResult a={analysis}/>}
       {showUL && <View style={styles.ukeireList}>
         {analysis.ukeireList.map((tileName, idx) => {
           return <Tile key={idx} tileName={tileName} height={30}/>
@@ -52,7 +90,7 @@ export default ResultEntry = ({tile, analysis}) => {
     </View>
     <View style={styles.viewUkeireBtn}>
       <TextButton
-        textLabel={'詳細'}
+        iconLabel={'plus-circle'}
         btnValue={'detail'}
         onPress={() => setShowUL(!showUL)}
       />

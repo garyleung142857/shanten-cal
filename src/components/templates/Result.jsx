@@ -29,8 +29,8 @@ export default Result = ({ navigation, route}) => {
     tilesQuery(hand, context.cRuleName).then(r => {
       setResult(r)
     }, err => {
-      Alert.alert('相公', err, [{
-        text: '確定',
+      Alert.alert(t.error, err, [{
+        text: t.ok,
         onPress: () => navigation.navigate('InputQuery', {query: route.params.query}),
         style: 'default'
       }])
@@ -55,8 +55,8 @@ export default Result = ({ navigation, route}) => {
     } else {
       optDiscards = [{tile: null, analysis: result}]
     }
-    optShantenStr = resShanten === 0 ? t.tenpai : `${resShanten}${t.shanten}`
-    infShantenStr = infDiscards.length > 0 ? `${resShanten + 1}${t.shanten}` : null
+    optShantenStr = resShanten === 0 ? t.tenpai : t.shanten.replace('{0}', resShanten)
+    infShantenStr = infDiscards.length > 0 ? t.shanten.replace('{0}', resShanten + 1) : null
   
     return <View style={styles.result}>
       <View style={styles.hand}>
@@ -78,9 +78,11 @@ export default Result = ({ navigation, route}) => {
             key={idx}
           />})}
       </ScrollView>}
-      {agari && <Text style={styles.agariText}>
-        和牌
-      </Text>}
+      {agari &&  <ScrollView style={styles.resultItems}>
+        <Text style={styles.agariText}>
+          {t.msgAgari}
+        </Text>
+      </ScrollView>}
       <View style={styles.navBtnHolder}>
         <TextButton
           onPress={() => navigation.navigate('InputQuery', {query: hand})}

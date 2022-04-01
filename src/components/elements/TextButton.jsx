@@ -1,15 +1,18 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import Icon from './Icon';
 
-
-export default TextButton = ({textLabel, btnValue, onPress}) => {
+export default TextButton = ({textLabel, iconLabel, btnValue, onPress}) => {
   return <TouchableOpacity
     onPress={() => onPress(btnValue)}
     style={[styles.button]}
   >
-    <Text style={styles.buttonLabel}>
+    {textLabel && <Text style={styles.textLabel}>
       {textLabel}
-    </Text>
+    </Text>}
+    {iconLabel && <Text style={styles.iconLabel}>
+      <Icon name={iconLabel}
+    /></Text>}
   </TouchableOpacity>
 }
 
@@ -21,11 +24,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: 'oldlace'
   },
-  buttonLabel: {
+  textLabel: {
     flex: 1,
     fontSize: 18,
     color: 'coral',
     textAlign: 'center',
     textAlignVertical: 'center'
   },
+  iconLabel: {
+    flex: 1,
+    color: 'coral',
+    textAlign: 'center',
+    textAlignVertical: 'center'
+  }
 })
