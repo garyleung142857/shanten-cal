@@ -15,7 +15,9 @@ const TilesPane = ({suit, onPress}) => {
     {suitBoard.map((keysRow, idx) => {
       return <View key={idx} style={styles.keyboardRow}>
         {keysRow.map((tn) => {
-          return <TileButton key={tn} tileName={tn} onPress={onPress}/>
+          return <View key={tn} style={styles.tileButton}>
+            <TileButton tileName={tn} onPress={onPress}/>
+          </View>
         })}
       </View>
     })}
@@ -110,6 +112,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  tileButton: {
+    flex: 1,
+    margin: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonContainer:{
     width: Math.min(SIZE * 0.4, 150),

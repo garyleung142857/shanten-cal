@@ -1,14 +1,18 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native'
 
-import Tile from './Tile'
+import TileButton from './TileButton';
 import { SIZE, HEIGHT, MAX_TILES, MAX_A_KIND } from '../../constants/Constants';
 
 
-export default Hand = ({tiles}) => {
+export default Hand = ({tiles, onTilePressed}) => {
   return <View style={styles.hand}>
     {tiles.map((tileName, idx) => {
-      return <Tile key={idx} tileName={tileName} />
+      return <TileButton 
+        key={idx} 
+        tileName={tileName} 
+        onPress={() => onTilePressed(idx)}
+      />
     })}
   </View>
 }

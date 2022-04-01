@@ -26,7 +26,7 @@ export default Result = ({ navigation, route}) => {
   const [result, setResult] = useState(null)
 
   useEffect(() => {
-    tilesQuery(hand).then(r => {
+    tilesQuery(hand, context.cRuleName).then(r => {
       setResult(r)
     }, err => {
       Alert.alert('相公', err, [{
@@ -60,7 +60,7 @@ export default Result = ({ navigation, route}) => {
   
     return <View style={styles.result}>
       <View style={styles.hand}>
-        <Hand tiles={hand} />
+        <Hand tiles={hand} onTilePressed={() => {}}/>
       </View>
       {!agari && <ScrollView style={styles.resultItems}>
         <Text style={styles.shantenText}>{optShantenStr}</Text>

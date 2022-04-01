@@ -25,9 +25,13 @@ export default InputQuery = ({navigation, route}) => {
   const initialHand = route.params ? route.params.query || [] : []
   const [queryHand, setQueryHand] = useState(initialHand)
 
+  const onTilePressed = (idx) => {
+    setQueryHand(queryHand.filter((item, i) => i !== idx))
+  }
+
   return <View style={styles.inputQuery}>
     <View style={styles.hand}>
-      <Hand tiles={queryHand} />
+      <Hand tiles={queryHand} onTilePressed={onTilePressed}/>
     </View>
     <View style={{flexGrow: 1}} />
     <View style={styles.keyboard}>

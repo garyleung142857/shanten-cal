@@ -6,12 +6,10 @@ import Tile from './Tile';
 
 export default TileButton = ({tileName, onPress}) => {
   if(tileName === ''){
-    return <View style={styles.button}>
-      <Tile tileName='' />
-    </View>
+    return <Tile tileName='' />
   } else {
     return (
-      <TouchableOpacity style={styles.button} onPress={() => {onPress(tileName)}}>
+      <TouchableOpacity style={styles.tile} onPress={() => {onPress(tileName)}}>
         <Tile tileName={tileName} />
       </TouchableOpacity>
     )
@@ -20,10 +18,7 @@ export default TileButton = ({tileName, onPress}) => {
 
 
 const styles = StyleSheet.create({
-  button: {
-    flex: 1,
-    margin: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  tile: {
+    flexShrink: 1
+  }
 });
