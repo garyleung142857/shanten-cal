@@ -12,5 +12,8 @@ export default {
   zihai: '字牌',
   clear: '清除',
   delete: '取消',
-  enter: '輪入'
+  enter: '輪入',
+  tenpai: '聽牌',
+  shanten: '向聽',
+  detail: '詳細'
 }

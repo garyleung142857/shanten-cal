@@ -55,8 +55,8 @@ export default Result = ({ navigation, route}) => {
     } else {
       optDiscards = [{tile: null, analysis: result}]
     }
-    optShantenStr = resShanten === 0 ? '聽牌' : `${resShanten}向聽`
-    infShantenStr = infDiscards.length > 0 ? `${resShanten + 1}向聽` : null
+    optShantenStr = resShanten === 0 ? t.tenpai : `${resShanten}${t.shanten}`
+    infShantenStr = infDiscards.length > 0 ? `${resShanten + 1}${t.shanten}` : null
   
     return <>
       <View style={styles.hand}>

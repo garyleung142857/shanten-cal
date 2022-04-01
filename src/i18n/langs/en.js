@@ -9,8 +9,11 @@ export default {
   manzu: 'Man',
   pinzu: 'Pin',
   souzu: 'Sou',
-  zihai: 'Honour',
+  zihai: 'Zi',
   clear: 'Clear',
   delete: 'Delete',
-  enter: 'Enter'
+  enter: 'Enter',
+  tenpai: 'Tenpai',
+  shanten: 'Shanten',
+  detail: 'More'
 }
