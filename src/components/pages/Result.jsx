@@ -20,7 +20,8 @@ export default Result = ({ navigation, route}) => {
   let infShantenStr
   let optDiscards = []  // discards with shanten being optimal
   let infDiscards = []  // discards with shanten not being optimal
-  
+  let solo  // true if hand is 3n + 1
+
   let hand = [...route.params.query]
   sortTiles(hand)
   const [result, setResult] = useState(null)
@@ -52,8 +53,10 @@ export default Result = ({ navigation, route}) => {
           infDiscards.push(r)
         }
       })
+      solo = false
     } else {
       optDiscards = [{tile: null, analysis: result}]
+      solo = true
     }
     optShantenStr = resShanten === 0 ? t.tenpai : t.shanten.replace('{0}', resShanten)
     infShantenStr = infDiscards.length > 0 ? t.shanten.replace('{0}', resShanten + 1) : null
@@ -69,6 +72,7 @@ export default Result = ({ navigation, route}) => {
             tile={r.tile}
             analysis={r.analysis}
             key={idx}
+            initialShowUl={solo}
           />})}
         <Text style={styles.shantenText}>{infShantenStr}</Text>
         {infDiscards.map((r, idx) => {
@@ -76,6 +80,7 @@ export default Result = ({ navigation, route}) => {
             tile={r.tile}
             analysis={r.analysis}
             key={idx}
+            initialShowUl={solo}
           />})}
       </ScrollView>}
       {agari &&  <ScrollView style={styles.resultItems}>
@@ -118,7 +123,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     padding: 10,
     fontWeight: "700",
-    color: 'red'
   },
   shantenText: {
     fontSize: 20,

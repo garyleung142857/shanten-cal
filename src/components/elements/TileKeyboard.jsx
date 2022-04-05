@@ -35,11 +35,13 @@ const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
       <TextButton
         btnValue={'man'}
         textLabel={t.manzu}
+        selected={selectedValue=='man'}
         onPress={() => setSelectedValue('man')}
       ></TextButton>
       <TextButton
         btnValue={'pin'}
         textLabel={t.pinzu}
+        selected={selectedValue=='pin'}
         onPress={() => setSelectedValue('pin')}
       ></TextButton>
     </View>
@@ -47,11 +49,13 @@ const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
       <TextButton
         btnValue={'sou'}
         textLabel={t.souzu}
+        selected={selectedValue=='sou'}
         onPress={() => setSelectedValue('sou')}
       ></TextButton>
       <TextButton
         btnValue={'zi'}
         textLabel={t.zihai}
+        selected={selectedValue=='zi'}
         onPress={() => setSelectedValue('zi')}
       ></TextButton>
     </View>
@@ -124,27 +128,6 @@ const styles = StyleSheet.create({
     height: Math.min(HEIGHT * 0.4, 250),
     padding: 5,
     backgroundColor: 'aliceblue'
-  },
-  button: {
-    flex: 1,
-    padding: 2,
-    margin: 2,
-    borderRadius: 4,
-    backgroundColor: 'oldlace'
-  },
-  selected: {
-    backgroundColor: 'coral',
-    borderWidth: 0,
-  },
-  buttonLabel: {
-    flex: 1,
-    fontSize: 18,
-    color: 'coral',
-    textAlign: 'center',
-    textAlignVertical: 'center'
-  },
-  selectedLabel: {
-    color: 'white',
   },
 })
 

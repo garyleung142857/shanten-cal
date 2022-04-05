@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 
 import Tile from './Tile'
@@ -65,7 +65,7 @@ const TextResult = ({a, t}) => {
   </Text>
 }
 
-export default ResultEntry = ({tile, analysis}) => {
+export default ResultEntry = ({tile, analysis, initialShowUl}) => {
 
   const context = useContext(AppContext)
   const t = context.cDict
@@ -73,7 +73,7 @@ export default ResultEntry = ({tile, analysis}) => {
   const backgroundColorStr = interpolateColor(analysis.shanten - 1, analysis.avgNextUkeire, false)
   const borderColorStr = interpolateColor(analysis.shanten, analysis.ukeire, true)
 
-  const [showUL, setShowUL] = useState(false)
+  const [showUL, setShowUL] = useState(initialShowUl)
 
   return <View style={[
       styles.resultEntry,
@@ -94,6 +94,7 @@ export default ResultEntry = ({tile, analysis}) => {
       <TextButton
         iconLabel={'more-vert'}
         btnValue={'detail'}
+        selected={showUL}
         onPress={() => setShowUL(!showUL)}
       />
     </View>
