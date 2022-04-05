@@ -15,8 +15,8 @@ const SymbolicResult = ({a}) => {
 
   return <Text style={styles.resultText}>
     {(a.shanten == 0 && a.ukeire == 0) ?
-      <Icon name="checkbox-blank-off-outline" /> :
-      <><Icon name="cards-outline" />{a.ukeire}</>
+      <Icon name="checkbox-blank-off-outline" iconType={'MaterialCommunityIcons'}/> :
+      <><Icon name="cards-outline" iconType={'MaterialCommunityIcons'}/>{a.ukeire}</>
     }
     {
       a.avgWithImprovment > a.ukeire &&
@@ -25,13 +25,15 @@ const SymbolicResult = ({a}) => {
     <>  </>
     {
       a.shanten > 0 &&
-      <><Icon name="step-forward" /><Icon name="cards" />
+      <><Icon name="step-forward" iconType={'MaterialCommunityIcons'}/>
+      <Icon name="cards" iconType={'MaterialCommunityIcons'}/>
       {a.avgNextUkeire.toFixed(2)}</>
     }
     <>  </>
     {
       a.speedRef && 
-      <><Icon name="run-fast" />{a.speedRef.toFixed(2)}%</>
+      <><Icon name="run-fast" iconType={'MaterialCommunityIcons'}/>
+      {a.speedRef.toFixed(2)}%</>
     }
   </Text>
 }
@@ -90,7 +92,7 @@ export default ResultEntry = ({tile, analysis}) => {
     </View>
     <View style={styles.viewUkeireBtn}>
       <TextButton
-        iconLabel={'plus-circle'}
+        iconLabel={'more-vert'}
         btnValue={'detail'}
         onPress={() => setShowUL(!showUL)}
       />
