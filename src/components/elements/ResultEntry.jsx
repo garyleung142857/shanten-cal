@@ -107,9 +107,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     minHeight: 70,
-    borderWidth: 5,
-    // borderColor: 'rgb(255, 0, 0)',
-    // backgroundColor: 'pink',
+    borderWidth: 3,
+    borderLeftWidth: 20,
     margin: 5
   },
   discardTile:{
