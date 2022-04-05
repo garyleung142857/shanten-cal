@@ -4,8 +4,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { StyleSheet, Text, View } from 'react-native'
 
-import InputQuery from './src/components/templates/InputQuery'
-import Result from './src/components/templates/Result'
+import InputQuery from './src/components/pages/InputQuery'
+import Result from './src/components/pages/Result'
 import About from './src/components/pages/About'
 import Settings from './src/components/pages/Settings'
 
