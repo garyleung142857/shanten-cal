@@ -175,6 +175,9 @@ const sortFunc = (a, b) => {
     return aa.ukeire > bb.ukeire ? -1 : 1
   }
   if(aa.shanten == bb.shanten){
+    if (aa.speedRef == null || bb.speedRef == null || aa.speedRef == bb.speedRef){
+      return aa.ukeire > bb.ukeire ? -1 : 1
+    }
     return aa.speedRef > bb.speedRef ? -1 : 1
   }
   return aa.shanten > bb.shanten ? 1 : -1

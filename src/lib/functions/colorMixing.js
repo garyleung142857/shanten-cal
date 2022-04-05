@@ -1,4 +1,5 @@
-import { ukeireStandard, rgbBackground, rgbBoarder, tenpaiBackgroundColor } from "../../constants/Constants"
+import { ukeireStandard } from "../../constants/Constants"
+import { rgbBoarder, rgbBackground, tenpaiBackgroundColor } from '../../styles/theme.style'
 
 const nodes = (ukeire) => {
   if (ukeire === -1){
@@ -15,7 +16,7 @@ const i1 = (x, av, bv, a, b) => {
   const mixB = (x - av) / (bv - av)
   let colorX = new Array(3)
   for (let i = 0; i < 3; i++){
-    colorX[i] = mixA * a[i] + mixB * b[i]
+    colorX[i] = parseInt((mixA * (a[i] / 256) ** 2 + mixB * (b[i] / 256) ** 2) ** 0.5 * 256)
   }
   return `rgb(${colorX[0]}, ${colorX[1]}, ${colorX[2]})`
 }

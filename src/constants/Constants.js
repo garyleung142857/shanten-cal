@@ -21,20 +21,6 @@ export const ukeireStandard = [
   [24, 72, 120]
 ]
 
-export const rgbBoarder = [
-  [255, 0, 0],
-  [0, 255, 0],
-  [0, 0, 255]
-]
-
-export const rgbBackground = [
-  [255, 200, 200],
-  [200, 255, 200],
-  [200, 200, 255]
-]
-
-export const tenpaiBackgroundColor = [255, 255, 100]
-
 
 export const rulesNames = [
   'Menzu',
