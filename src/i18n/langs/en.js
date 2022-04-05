@@ -1,5 +1,7 @@
 export default {
+  inputQuery: 'Input Query',
   settings: 'Settings',
+  about: 'About',
   darkMode: 'Dark Mode',
   verbose: 'Verbose',
   language: 'Language',

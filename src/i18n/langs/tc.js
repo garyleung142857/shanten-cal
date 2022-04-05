@@ -1,5 +1,7 @@
 export default {
+  inputQuery: '查詢手牌',
   settings: '設定',
+  about: '關於',
   darkMode: '夜間模式',
   verbose: '詳細模式',
   language: '語言',
@@ -12,7 +14,7 @@ export default {
   zihai: '字牌',
   clear: '清除',
   delete: '取消',
-  enter: '輪入',
+  enter: '輸入',
   ok: '知道',
   tenpai: '聽牌',
   msgKaraten: '空聽 ',

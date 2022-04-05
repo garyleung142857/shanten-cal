@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { StatusBar } from 'expo-status-bar'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { NavigationContainer } from '@react-navigation/native'
+import { StyleSheet, Text, View } from 'react-native'
 
-import InputQuery from './src/components/templates/InputQuery';
+import InputQuery from './src/components/templates/InputQuery'
 import Result from './src/components/templates/Result'
-import Settings from './src/components/pages/Settings';
+import About from './src/components/pages/About'
+import Settings from './src/components/pages/Settings'
 
-import AppContext from './src/lib/AppContext';
-import { translations } from './src/i18n/i18n';
+import AppContext from './src/lib/AppContext'
+import { translations } from './src/i18n/i18n'
+import Icon from './src/components/elements/Icon'
 
-const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator()
 
 export default function App() {
   const [locale, setLocale] = useState('tc')
@@ -42,20 +44,40 @@ export default function App() {
   return (
     <AppContext.Provider value={userSettings}>
       <NavigationContainer style={styles.container}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="InputQuery"
+        <Drawer.Navigator>
+          <Drawer.Screen
+            name={'InputQuery'}
             component={InputQuery}
+            options={{
+              title: dict['inputQuery'],
+              drawerIcon:() => <Icon name={'magnify'} iconType={'MaterialCommunityIcons'}/>
+            }}
           />
-          <Stack.Screen
-            name="Result"
-            component={Result}
-          />
-          <Stack.Screen
-            name="Settings"
+          <Drawer.Screen
+            name={'Settings'}
             component={Settings}
+            options={{
+              title: dict['settings'],
+              drawerIcon:() => <Icon name={'settings'} />
+            }}
           />
-        </Stack.Navigator>
+          <Drawer.Screen
+            name={'About'}
+            component={About}
+            options={{
+              title: dict['about'],
+              drawerIcon:() => <Icon name={'info-outline'}/>
+            }}
+          />
+          <Drawer.Screen
+            name={'Result'}
+            component={Result}
+            options={{
+              drawerItemStyle: {display: 'none'},  // don't show in the drawer
+              unmountOnBlur: true  // don't cache the results
+            }}
+          />
+        </Drawer.Navigator>
       </NavigationContainer>
     </AppContext.Provider>
   );
