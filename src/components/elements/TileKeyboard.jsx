@@ -74,7 +74,7 @@ const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
       </View>
       <TextButton
         btnValue={'enter'}
-        iconLabel={'check-bold'}
+        iconLabel={'check'}
         onPress={() => onPress('Enter')}
       ></TextButton>
     </View>
