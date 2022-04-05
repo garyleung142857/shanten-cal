@@ -28,4 +28,13 @@ export default {
   detail: '詳細',
   error: '檢查你的手牌',
   nextShanten: '下一向聽',
+  ruleMenzu: '面子手',
+  ruleHK: '香港舊章',
+  ruleRiichi: '日本麻雀',
+  ruleZungJung: '中庸麻雀',
+  ruleMCR: '國標麻雀',
+  ruleTaiwan: '台灣牌',
+  ruleHKTW: '港式台灣牌',
+  stateOn: '開',
+  stateOff: '關'
 }

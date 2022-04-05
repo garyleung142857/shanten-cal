@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react'
+import React, { useContext, useState, useCallback, useEffect } from 'react'
 import { View, Text, StyleSheet, Switch } from 'react-native'
 import { rulesNames, langOpts } from '../../constants/Constants'
 import DropDownPicker from 'react-native-dropdown-picker'
@@ -19,7 +19,7 @@ export default Settings = ({navigation, route}) => {
 
   const [ddRulesOpen, setddRulesOpen] = useState(false);
   const [rns, setRns] = useState(rulesNames.map(name => {
-    return {label: name, value: name}
+    return {label: t['rule' + name], value: name}
   }));
 
   const [ddLangsOpen, setddLangsOpen] = useState(false)
@@ -35,6 +35,12 @@ export default Settings = ({navigation, route}) => {
     setddLangsOpen(false)
   }, [])
 
+  useEffect(() => {
+    setRns(rulesNames.map(name => {
+      return {label: t['rule' + name], value: name}
+    }))
+  }, [context.cDict])
+
   return (
     <View>
       <Text style={styles.title}>{t.settings}</Text>
@@ -48,24 +54,29 @@ export default Settings = ({navigation, route}) => {
           items={rns}
           setOpen={setddRulesOpen}
           setValue={context.setRuleName}
-          setItems={setRns}
           zIndex={3000}
           zIndexInverse={1000}
         />
       </View>
       <View style={styles.settingItem}>
         <TextLabel text={t.darkMode} />
-        <Switch
-          value={context.cDarkMode}
-          onChange={context.toggleDarkMode}
-        />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text>{context.cDarkMode ? t.stateOn : t.stateOff}</Text>
+          <Switch
+            value={context.cDarkMode}
+            onChange={context.toggleDarkMode}
+          />
+        </View>
       </View>
       <View style={styles.settingItem}>
         <TextLabel text={t.verbose}/>
-        <Switch
-          value={context.cVerbose}
-          onChange={context.toggleVerbose}
-        />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text>{context.cVerbose ? t.stateOn : t.stateOff}</Text>
+          <Switch
+            value={context.cVerbose}
+            onChange={context.toggleVerbose}
+          />
+        </View>
       </View>
       <View style={styles.settingItem}>
         <TextLabel text={t.language}/>
@@ -77,7 +88,6 @@ export default Settings = ({navigation, route}) => {
           items={langs}
           setOpen={setddLangsOpen}
           setValue={context.setLocale}
-          setItems={setLangs}
           zIndex={1000}
           zIndexInverse={3000}
         />

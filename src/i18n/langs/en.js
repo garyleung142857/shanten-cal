@@ -27,5 +27,14 @@ export default {
   shanten: '{0} Shanten',
   detail: 'More',
   error: 'Check your hand',
-  nextShanten: 'Next'
+  nextShanten: 'Next',
+  ruleMenzu: 'Menzu Hand',
+  ruleHK: 'HK Old Style',
+  ruleRiichi: 'Japanese',
+  ruleZungJung: 'Zung Jung',
+  ruleMCR: 'MCR',
+  ruleTaiwan: 'Taiwan',
+  ruleHKTW: 'HK Styled Taiwan',
+  stateOn: 'On',
+  stateOff: 'Off'
 }
