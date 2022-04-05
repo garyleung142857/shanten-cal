@@ -30,17 +30,13 @@ export default InputQuery = ({navigation, route}) => {
   }
 
   return <View style={styles.inputQuery}>
-    <View style={styles.hand}>
-      <Hand tiles={queryHand} onTilePressed={onTilePressed}/>
-    </View>
+    <Hand tiles={queryHand} onTilePressed={onTilePressed}/>
     <View style={{flexGrow: 1}} />
-    <View style={styles.keyboard}>
-      <TileKeyboard
-        handleInput={(input) => handleInput(
-          queryHand, setQueryHand, navigation.navigate, input
-        )}
-      />
-    </View>
+    <TileKeyboard
+      handleInput={(input) => handleInput(
+        queryHand, setQueryHand, navigation.navigate, input
+      )}
+    />
   </View>
 }
 
@@ -50,13 +46,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  hand: {
-    // position: 'absolute',
-    // top: 5
-  },
-  keyboard: {
-    // position: 'absolute',
-    // bottom: 0
   },
 })

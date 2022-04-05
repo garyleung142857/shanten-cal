@@ -22,13 +22,11 @@ const styles = StyleSheet.create({
   hand: {
     overflow: 'hidden',
     flexDirection: 'row',
-    borderColor: 'red',
     borderRadius: 5,
-    borderBottomWidth: 10,
     paddingHorizontal: 2,
     backgroundColor: 'pink',
-    paddingTop: 5,
-    height: 70,
+    padding: 5,
+    height: 60,
     width: SIZE - 10,
     alignItems: 'flex-end'
   }
