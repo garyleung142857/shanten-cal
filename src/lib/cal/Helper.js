@@ -26,6 +26,19 @@ export const reduceHand = (hand, detailed=true) => {
 }
 
 
+export const handToNums = (hand) => {
+  let resList = []
+  for (let i = 0; i < 4; i++){
+    for (let j = 0; j < hand[i].length; j++){
+      for (let k = 0; k < hand[i][j]; k++){
+        resList.push(i * 9 + j)
+      }
+    }
+  }
+  return resList
+}
+
+
 export const FULLSET = [
   [4, 4, 4, 4, 4, 4, 4, 4, 4],
   [4, 4, 4, 4, 4, 4, 4, 4, 4],

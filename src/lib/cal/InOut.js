@@ -4,6 +4,7 @@ import { tilesToHand, suitStrsToHand, checkHand } from './Helper.js';
 
 const queryHand = (hand, ruleName) => {
   let state = null
+  calUkeire.setHand(hand)
   try{
     state = checkHand(hand, ruleName)
   } catch (e) {

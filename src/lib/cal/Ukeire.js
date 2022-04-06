@@ -1,71 +1,105 @@
-import { reduceHand, FULLSET, emptyHand, sumHand } from './Helper.js'
+import { reduceHand, handToNums, FULLSET, emptyHand, sumHand } from './Helper.js'
 import { calShantenRule } from './CalShanten.js'
+// import { suitMap } from './SuitCombination.js';
 
 
 let calRule
-
+let hand
+let calRuleMap = new Map()
+let u1Map = new Map()
+let u2Map = new Map()
 
 const setCalRule = (ruleName) => {
   calRule = calShantenRule(ruleName)
+  calRuleMap = new Map()
+  u1Map = new Map()
+  u2Map = new Map()
 }
 
+const setHand = (hand_) => {
+  hand = hand_
+}
 
-const ukeire1 = (hand) => {
+const cal = () => {
+  const rHand = handToNums(hand, false).join(',')
+  if (calRuleMap.has(rHand)){
+    return calRuleMap.get(rHand)
+  } else {
+    const st = calRule(hand)
+    calRuleMap.set(rHand, st)
+    return st
+  }
+}
+
+const ukeire1 = () => {
   // for 3n + 1 hands
-  let ukeires = emptyHand()
-  const originalShanten = calRule(hand)  // at least 0, since not completed
-
-  for (let i = 0; i < 4; i++){
-    for (let j = 0; j < FULLSET[i].length; j++){
-      const remainingCount = FULLSET[i][j] - hand[i][j]
-      if (remainingCount > 0){
-        hand[i][j]++
-        const newShanten = calRule(hand)
-        hand[i][j]--
-        if (newShanten < originalShanten){
-          ukeires[i][j] = remainingCount
+  const rHand = handToNums(hand, false).join(',')
+  if (u1Map.has(rHand)){
+    return u1Map.get(rHand)
+  } else {
+    let ukeires = emptyHand()
+    const originalShanten = cal()  // at least 0, since not completed
+  
+    for (let i = 0; i < 4; i++){
+      for (let j = 0; j < FULLSET[i].length; j++){
+        const remainingCount = FULLSET[i][j] - hand[i][j]
+        if (remainingCount > 0){
+          hand[i][j]++
+          const newShanten = cal()
+          hand[i][j]--
+          if (newShanten < originalShanten){
+            ukeires[i][j] = remainingCount
+          }
         }
       }
     }
-  }
-  return {
-    ukeire: ukeires,
-    ukeireList: reduceHand(ukeires, false),
-    totalUkeire: sumHand(ukeires),
-    shanten: originalShanten,
-    
+    const u1 = {
+      ukeire: ukeires,
+      ukeireList: reduceHand(ukeires, false),
+      totalUkeire: sumHand(ukeires),
+      shanten: originalShanten,
+    }
+    u1Map.set(rHand, u1)
+    return u1
   }
 }
 
 
-const ukeire2 = (hand) => {
+const ukeire2 = () => {
   // for 3n + 2 hands
   // consider every tile, even if shanten increases
-  const originalShanten = calRule(hand)
-  let ukeires = emptyHand()
-  let bestUkeire = 0
-  
-  for (let i = 0; i < 4; i++){
-    for (let j = 0; j < FULLSET[i].length; j++){
-      if(hand[i][j] > 0){
-        hand[i][j]--
-        const newUkeire = ukeire1(hand)
-        ukeires[i][j] = [
-          newUkeire.shanten,
-          newUkeire.totalUkeire,
-          newUkeire.ukeireList
-        ]
-        if(newUkeire.shanten == originalShanten && newUkeire.totalUkeire > bestUkeire){
-          bestUkeire = newUkeire.totalUkeire
+  const rHand = handToNums(hand, false).join(',')
+  if (u2Map.has(rHand)){
+    return u2Map.get(rHand)
+  } else {
+    const originalShanten = cal()
+    // let ukeires = emptyHand()
+    let bestUkeire = 0
+    
+    for (let i = 0; i < 4; i++){
+      for (let j = 0; j < FULLSET[i].length; j++){
+        if(hand[i][j] > 0){
+          hand[i][j]--
+          const newUkeire = ukeire1()
+          // ukeires[i][j] = [
+          //   newUkeire.shanten,
+          //   newUkeire.totalUkeire,
+          //   newUkeire.ukeireList
+          // ]
+          if(newUkeire.shanten == originalShanten && newUkeire.totalUkeire > bestUkeire){
+            bestUkeire = newUkeire.totalUkeire
+          }
+          hand[i][j]++
         }
-        hand[i][j]++
       }
     }
-  }
-  return {
-    best: bestUkeire,
-    shanten: originalShanten,
-    tiles: ukeires
+    u2 = {
+      best: bestUkeire,
+      shanten: originalShanten,
+      // tiles: ukeires
+    }
+    u2Map.set(rHand, u2)
+    return u2
   }
 }
 
@@ -87,13 +121,13 @@ const speedRef = (ukeire, avgNextUkeire, leftTurns) => {
 }
 
 
-const analyze1 = (hand) => {
+const analyze1 = () => {
   let totalTiles = 0
   let totalUkeire = 0
   // let ukeireImprovment = emptyHand()
   let nextShantenTiles = 0
   let nextShantenUkeire = 0
-  const thisUkeire = ukeire1(hand)
+  const thisUkeire = ukeire1()
   const originalShanten = thisUkeire.shanten
 
   for (let i = 0; i < 4; i++){
@@ -101,7 +135,7 @@ const analyze1 = (hand) => {
       const remainingCount = FULLSET[i][j] - hand[i][j]
       if (remainingCount > 0){
         hand[i][j]++
-        const newUkeire = ukeire2(hand)
+        const newUkeire = ukeire2()
         hand[i][j]--
         if(newUkeire.shanten == originalShanten){
           totalTiles += remainingCount
@@ -135,8 +169,8 @@ const analyze1 = (hand) => {
 }
 
 
-const analyze2 = (hand) => {
-  const originalShanten = calRule(hand)
+const analyze2 = () => {
+  const originalShanten = cal()
   let analysis = emptyHand()
   // let bestUkeireImprovment = 0
   if(originalShanten >= 0){
@@ -144,7 +178,7 @@ const analyze2 = (hand) => {
       for (let j = 0; j < FULLSET[i].length; j++){
         if(hand[i][j] > 0){
           hand[i][j]--
-          const newAnalysis = analyze1(hand)
+          const newAnalysis = analyze1()
           analysis[i][j] = newAnalysis
           hand[i][j]++
         }
@@ -152,7 +186,10 @@ const analyze2 = (hand) => {
     }
     const tiles = reduceHand(analysis, true)
     const sortedTiles = tiles.sort(sortFunc)
-
+    console.log(calRuleMap.size)
+    // console.log(suitMap.size)
+    console.log(u1Map.size)
+    console.log(u2Map.size)
     return {
       shanten: originalShanten,
       tiles: sortedTiles
@@ -183,9 +220,11 @@ const sortFunc = (a, b) => {
   return aa.shanten > bb.shanten ? 1 : -1
 }
 
+hand = null
 
 export const calUkeire = {
   setCalRule,
+  setHand,
   ukeire1,
   ukeire2,
   analyze1,
