@@ -94,10 +94,6 @@ export default Result = ({ navigation, route}) => {
           textLabel={t.newHand}
         ></TextButton>
         <TextButton
-          onPress={() => {}}
-          textLabel={t.toMenu}
-        ></TextButton>
-        <TextButton
           onPress={() => navigation.navigate('Settings')}
           textLabel={t.settings}
         ></TextButton>
