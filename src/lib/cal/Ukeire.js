@@ -186,10 +186,6 @@ const analyze2 = () => {
     }
     const tiles = reduceHand(analysis, true)
     const sortedTiles = tiles.sort(sortFunc)
-    console.log(calRuleMap.size)
-    // console.log(suitMap.size)
-    console.log(u1Map.size)
-    console.log(u2Map.size)
     return {
       shanten: originalShanten,
       tiles: sortedTiles
