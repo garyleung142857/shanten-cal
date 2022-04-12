@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Icon from './Icon';
 
+import AppContext from '../../lib/AppContext'
+
+
 export default TextButton = ({textLabel, iconLabel, btnValue, selected, onPress}) => {
+  const color = useContext(AppContext).cColor
+  
   return <TouchableOpacity
     onPress={() => onPress(btnValue)}
-    style={[styles.button, selected && styles.selected]}
+    style={[styles.button, {backgroundColor: selected ? color.btnDark : color.btnLight}]}
   >
-    {textLabel && <Text style={[styles.textLabel, selected && styles.selectedLabel]}>
+    {textLabel && <Text style={[styles.textLabel, {color: selected ? color.btnLight : color.btnDark}]}>
       {textLabel}
     </Text>}
-    {iconLabel && <Text style={[styles.iconLabel, selected && styles.selectedLabel]}>
+    {iconLabel && <Text style={[styles.iconLabel, {color: selected ? color.btnLight : color.btnDark}]}>
       <Icon name={iconLabel}
     /></Text>}
   </TouchableOpacity>
@@ -22,26 +27,16 @@ const styles = StyleSheet.create({
     padding: 2,
     margin: 2,
     borderRadius: 4,
-    backgroundColor: 'oldlace'
   },
   textLabel: {
     flex: 1,
     fontSize: 18,
-    color: 'coral',
     textAlign: 'center',
     textAlignVertical: 'center'
   },
   iconLabel: {
     flex: 1,
-    color: 'coral',
     textAlign: 'center',
     textAlignVertical: 'center'
-  },
-  selected: {
-    backgroundColor: 'coral',
-    borderWidth: 0,
-  },
-  selectedLabel: {
-    color: 'white',
-  },
+  }
 })

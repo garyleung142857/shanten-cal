@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { StatusBar } from 'expo-status-bar'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
-import { StyleSheet, Text, View } from 'react-native'
+import { Text } from 'react-native'
 
 import InputQuery from './src/components/pages/InputQuery'
 import Result from './src/components/pages/Result'
@@ -11,6 +10,7 @@ import Settings from './src/components/pages/Settings'
 
 import AppContext from './src/lib/AppContext'
 import { translations } from './src/i18n/i18n'
+import { colorTheme } from './src/styles/theme.style'
 import Icon from './src/components/elements/Icon'
 
 const Drawer = createDrawerNavigator()
@@ -21,6 +21,7 @@ export default function App() {
   const [verbose, setVerbose] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
   const [dict, setDict] = useState(translations[locale])
+  const [color, setColor] = useState(darkMode ? 'dark': 'light')
 
   const toggleVerbose = () => {setVerbose(v => !v)}
   const toggleDarkMode = () => {setDarkMode(v => !v)}
@@ -29,12 +30,20 @@ export default function App() {
     setDict(translations[locale])
   }, [locale])
 
+  useEffect(() => {
+    setColor(colorTheme[darkMode ? 'dark': 'light'])
+  }, [darkMode])
+
+  // hack: https://stackoverflow.com/questions/54069253/the-usestate-set-method-is-not-reflecting-a-change-immediately
+  console.log((color || dict) ? '' : '')  // do not remove
+  
   const userSettings = {
     cLocale: locale,
     cRuleName: ruleName,
     cVerbose: verbose,
     cDarkMode: darkMode,
     cDict: dict,
+    cColor: color,
     setLocale,
     setRuleName,
     toggleDarkMode,
@@ -43,14 +52,21 @@ export default function App() {
 
   return (
     <AppContext.Provider value={userSettings}>
-      <NavigationContainer style={styles.container}>
-        <Drawer.Navigator>
+      <NavigationContainer>
+        <Drawer.Navigator
+          screenOptions={{
+            drawerStyle: {backgroundColor: color['appBg']},
+            headerStyle: {backgroundColor: color['appBg']},
+            headerTintColor: color['text']
+          }}
+        >
           <Drawer.Screen
             name={'InputQuery'}
             component={InputQuery}
             options={{
               title: dict['inputQuery'],
-              drawerIcon:() => <Icon name={'magnify'} iconType={'MaterialCommunityIcons'}/>
+              drawerIcon:() => <Text style={{color: color['text']}}><Icon name={'magnify'} iconType={'MaterialCommunityIcons'}/></Text>,
+              drawerLabelStyle:{color: color['text']}
             }}
           />
           <Drawer.Screen
@@ -58,7 +74,8 @@ export default function App() {
             component={Settings}
             options={{
               title: dict['settings'],
-              drawerIcon:() => <Icon name={'settings'} />
+              drawerIcon:() => <Text style={{color: color['text']}}><Icon name={'settings'} /></Text>,
+              drawerLabelStyle:{color: color['text']}
             }}
           />
           <Drawer.Screen
@@ -66,7 +83,8 @@ export default function App() {
             component={About}
             options={{
               title: dict['about'],
-              drawerIcon:() => <Icon name={'info-outline'}/>
+              drawerIcon:() => <Text style={{color: color['text']}}><Icon name={'info-outline'}/></Text>,
+              drawerLabelStyle:{color: color['text']}
             }}
           />
           <Drawer.Screen
@@ -83,11 +101,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

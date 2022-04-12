@@ -5,9 +5,9 @@ import DropDownPicker from 'react-native-dropdown-picker'
 
 import AppContext from '../../lib/AppContext'
 
-const TextLabel = ({text}) => {
+const TextLabel = ({text, textColor}) => {
   return <View style={styles.settingLabel}>
-    <Text style={styles.labelText}>{text}</Text>
+    <Text style={[styles.labelText, {color: textColor}]}>{text}</Text>
   </View>
 }
 
@@ -16,6 +16,7 @@ export default Settings = ({navigation, route}) => {
   
   const context = useContext(AppContext)
   const t = context.cDict
+  const color = context.cColor
 
   const [ddRulesOpen, setddRulesOpen] = useState(false);
   const [rns, setRns] = useState(rulesNames.map(name => {
@@ -23,9 +24,10 @@ export default Settings = ({navigation, route}) => {
   }));
 
   const [ddLangsOpen, setddLangsOpen] = useState(false)
-  const [langs, setLangs] = useState(Object.entries(langOpts).map(([k, v]) => {
+
+  let langs = Object.entries(langOpts).map(([k, v]) => {
     return {label: v, value: k}
-  }))
+  })
   
   const onddLangsOpen = useCallback(() => {
     setddRulesOpen(false)
@@ -41,11 +43,15 @@ export default Settings = ({navigation, route}) => {
     }))
   }, [context.cDict])
 
+  useEffect(() => {
+    DropDownPicker.setTheme(context.cDarkMode ? 'DARK' : 'LIGHT')
+  }, [context.cDarkMode])
+
   return (
-    <View>
-      <Text style={styles.title}>{t.settings}</Text>
+    <View style={[styles.settings, {backgroundColor: color.appBg}]}>
+      <Text style={[styles.title, {color: color.text}]}>{t.settings}</Text>
       <View style={styles.settingItem}>
-        <TextLabel text={t.rule}/>
+        <TextLabel text={t.rule} textColor={color.text}/>
         <DropDownPicker
           containerStyle={{width: 150}}
           open={ddRulesOpen}
@@ -59,27 +65,27 @@ export default Settings = ({navigation, route}) => {
         />
       </View>
       <View style={styles.settingItem}>
-        <TextLabel text={t.darkMode} />
+        <TextLabel text={t.darkMode} textColor={color.text}/>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text>{context.cDarkMode ? t.stateOn : t.stateOff}</Text>
+          <Text style={{color: color.text}}>{context.cDarkMode ? t.stateOn : t.stateOff}</Text>
           <Switch
             value={context.cDarkMode}
-            onChange={context.toggleDarkMode}
+            onValueChange={context.toggleDarkMode}
           />
         </View>
       </View>
       <View style={styles.settingItem}>
-        <TextLabel text={t.verbose}/>
+        <TextLabel text={t.verbose} textColor={color.text}/>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text>{context.cVerbose ? t.stateOn : t.stateOff}</Text>
+          <Text style={{color: color.text}}>{context.cVerbose ? t.stateOn : t.stateOff}</Text>
           <Switch
             value={context.cVerbose}
-            onChange={context.toggleVerbose}
+            onValueChange={context.toggleVerbose}
           />
         </View>
       </View>
       <View style={styles.settingItem}>
-        <TextLabel text={t.language}/>
+        <TextLabel text={t.language} textColor={color.text}/>
         <DropDownPicker
           containerStyle={{width: 150}}
           open={ddLangsOpen}
@@ -98,6 +104,10 @@ export default Settings = ({navigation, route}) => {
 
 
 const styles = StyleSheet.create({
+  settings: {
+    flex: 1,
+    padding: 10
+  },
   title: {
     fontSize: 30,
     fontWeight: '700'

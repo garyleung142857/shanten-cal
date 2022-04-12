@@ -14,6 +14,7 @@ export default Result = ({ navigation, route}) => {
   
   const context = useContext(AppContext)
   const t = context.cDict
+  const color = context.cColor
 
   let agari
   let optShantenStr
@@ -39,7 +40,7 @@ export default Result = ({ navigation, route}) => {
   }, [])
 
   if (result === null){
-    return <View style={{flex : 1, justifyContent: 'center', alignItems: 'center'}}>
+    return <View style={[styles.result, {backgroundColor: color.appBg}]}>
       <ActivityIndicator size="large" color="#0000ff"/>
     </View> 
   } else {
@@ -61,12 +62,14 @@ export default Result = ({ navigation, route}) => {
     optShantenStr = resShanten === 0 ? t.tenpai : t.shanten.replace('{0}', resShanten)
     infShantenStr = infDiscards.length > 0 ? t.shanten.replace('{0}', resShanten + 1) : null
   
-    return <View style={styles.result}>
+    return <View style={[styles.result, {backgroundColor: color.appBg}]}>
       <View style={styles.hand}>
         <Hand tiles={hand} onTilePressed={() => {}}/>
       </View>
       {!agari && <ScrollView style={styles.resultItems}>
-        <Text style={styles.shantenText}>{optShantenStr}</Text>
+      <Text style={[styles.shantenText, {color: color.text}]}>
+          {optShantenStr}
+        </Text>
         {optDiscards.map((r, idx) => {
           return <ResultEntry
             tile={r.tile}
@@ -74,7 +77,9 @@ export default Result = ({ navigation, route}) => {
             key={idx}
             initialShowUl={solo}
           />})}
-        <Text style={styles.shantenText}>{infShantenStr}</Text>
+        <Text style={[styles.shantenText, {color: color.text}]}>
+          {infShantenStr}
+        </Text>
         {infDiscards.map((r, idx) => {
           return <ResultEntry
             tile={r.tile}
@@ -84,7 +89,7 @@ export default Result = ({ navigation, route}) => {
           />})}
       </ScrollView>}
       {agari &&  <ScrollView style={styles.resultItems}>
-        <Text style={styles.agariText}>
+        <Text style={[styles.agariText, {color: color.text}]}>
           {t.msgAgari}
         </Text>
       </ScrollView>}
@@ -129,6 +134,5 @@ const styles = StyleSheet.create({
     padding: 5,
     flexDirection: 'row',
     flexGrow: 0,
-    backgroundColor: 'darkblue'
   },
 })

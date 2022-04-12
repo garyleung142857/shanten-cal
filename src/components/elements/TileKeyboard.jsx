@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import TileButton from './TileButton';
 import TextButton from './TextButton';
@@ -9,9 +9,9 @@ import { SIZE, HEIGHT } from '../../constants/Constants'
 import AppContext from '../../lib/AppContext'
 
 
-const TilesPane = ({suit, onPress}) => {
+const TilesPane = ({suit, onPress, bgColor}) => {
   const suitBoard = BOARDS[suit]
-  return <View style={styles.keyboardSuitContainer}>
+  return <View style={[styles.keyboardSuitContainer, {backgroundColor: bgColor}]}>
     {suitBoard.map((keysRow, idx) => {
       return <View key={idx} style={styles.keyboardRow}>
         {keysRow.map((tn) => {
@@ -25,12 +25,9 @@ const TilesPane = ({suit, onPress}) => {
 }
 
 
-const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
-  
-  const context = useContext(AppContext)
-  const t = context.cDict
-  
-  return <View style={styles.buttonContainer}>
+const ButtonsPane = ({selectedValue, setSelectedValue, onPress, t, bgColor}) => {
+
+  return <View style={[styles.buttonContainer, {backgroundColor: bgColor}]}>
     <View style={styles.keyboardRow}>
       <TextButton
         btnValue={'man'}
@@ -61,42 +58,48 @@ const ButtonsPane = ({selectedValue, setSelectedValue, onPress}) => {
     </View>
     <View style={[styles.keyboardRow, {flex: 2}]}>
       <View style={{flex: 1}}>
-        <View style={styles.keyboardRow}>
-          <TextButton
-            btnValue={'clear'}
-            iconLabel={'delete-outline'}
-            onPress={() => onPress('Clear')}
-          ></TextButton>
-        </View>
-        <View style={styles.keyboardRow}>
-          <TextButton
-            btnValue={'delete'}
-            iconLabel={'backspace'}
-            onPress={() => onPress('Delete')}
-          ></TextButton>
-        </View>
+        <TextButton
+          btnValue={'clear'}
+          iconLabel={'delete-outline'}
+          onPress={() => onPress('Clear')}
+        ></TextButton>
+        <TextButton
+          btnValue={'delete'}
+          iconLabel={'backspace'}
+          onPress={() => onPress('Delete')}
+        ></TextButton>
       </View>
-      <TextButton
-        btnValue={'enter'}
-        iconLabel={'check'}
-        onPress={() => onPress('Enter')}
-      ></TextButton>
+      <View style={{flex: 1}}>
+        <TextButton
+          btnValue={'enter'}
+          iconLabel={'check'}
+          onPress={() => onPress('Enter')}
+        ></TextButton>
+      </View>
     </View>
   </View>
 }
 
 
 export default TileKeyboard = ({handleInput}) => {
+  const context = useContext(AppContext)
+  const t = context.cDict
+  const color = context.cColor
+
   const [activeSuit, setActiveSuit] = useState('pin')
+  
   return <View style={styles.keyboardContainer}>
     <TilesPane 
       suit={activeSuit} 
       onPress={handleInput}
+      bgColor={color.keyboard}
     />
     <ButtonsPane 
       selectedValue={activeSuit}
       setSelectedValue={setActiveSuit}
       onPress={handleInput}
+      bgColor={color.keyboard}
+      t={t}
     />
   </View>
 }
@@ -109,7 +112,8 @@ const styles = StyleSheet.create({
     width: Math.min(SIZE * 0.6, 200),
     height: Math.min(HEIGHT * 0.4, 250),
     padding: 5,
-    backgroundColor: 'skyblue'
+    paddingRight: 0
+    // backgroundColor: 'skyblue'
   },
   keyboardRow: {
     flex: 1,
@@ -127,7 +131,7 @@ const styles = StyleSheet.create({
     width: Math.min(SIZE * 0.4, 150),
     height: Math.min(HEIGHT * 0.4, 250),
     padding: 5,
-    backgroundColor: 'aliceblue'
+    // backgroundColor: 'aliceblue'
   },
 })
 
