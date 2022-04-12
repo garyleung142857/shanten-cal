@@ -151,12 +151,24 @@ const calShantenHonourAndKnittedTiles = (hand) => {
 const calShantenKnittedStraight = (hand) => {
   if (handLength(hand) < 10 || handLength(hand) > 14) return Infinity
   let bestShanten = Infinity  // lowest among 6 possible knits
+
+  let matchResis = []
+  for (let i = 0; i < 3; i++){
+    let matchResiSuit = []
+    for (let j = 0; j < 3; j++){
+      matchResiSuit.push(
+        applyMaskSuitResidual(hand[i], masks.knit[j])
+      )
+    }
+    matchResis.push(matchResiSuit)
+  }
+
   const residualTarget = menzuTarget(hand) - 3
-  const fixedKnitShanten = (ms) => {
+  const fixedKnitShanten = (perm) => {
     let fixedKnitMatch = 0
     let residualHand = []
     for (let idx = 0; idx < 3; idx++){
-      const [match, resi] = applyMaskSuitResidual(hand[idx], ms[idx])
+      const [match, resi] = matchResis[idx][perm[idx]]
       fixedKnitMatch += match
       residualHand.push(resi)
     }
@@ -168,12 +180,8 @@ const calShantenKnittedStraight = (hand) => {
   for (let i = 0; i < 3; i++){
     for (let j = 0; j < 3; j++){
       if (i != j){
-        const fixedKnitMasks = [
-          masks.knit[i],
-          masks.knit[j],
-          masks.knit[3 - i - j],
-        ]  // one of 6 permutations of the masks
-        bestShanten = Math.min(fixedKnitShanten(fixedKnitMasks), bestShanten)
+        const perm = [i, j, 3 - i - j]
+        bestShanten = Math.min(fixedKnitShanten(perm), bestShanten)
       }
     }
   }

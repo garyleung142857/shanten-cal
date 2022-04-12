@@ -4,13 +4,12 @@ export const applyMaskSuitPair = (suit_, suitMask) => {
   // 1 means targeted tile
   // will be awared of pair
   // will return number of tiles matched and whether pair exists
-  let suit = [...suit_]
   let count = 0
   let pairExists = false
   for (let i = 0; i < suitMask.length; i++){
-    if (suitMask[i] && suit[i]){
+    if (suitMask[i] && suit_[i]){
       count++
-      if (suit[i] >= 2){
+      if (suit_[i] >= 2){
         pairExists = true
       }
     }
