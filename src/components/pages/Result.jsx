@@ -123,14 +123,14 @@ const styles = StyleSheet.create({
   agariText: {
     fontSize: 36,
     padding: 10,
-    fontWeight: "700",
+    fontWeight: 'bold',
   },
   shantenText: {
     fontSize: 20,
-    fontWeight: '700'
+    fontWeight: 'bold'
   },
   navBtnHolder: {
-    height: 50,
+    height: 60,
     padding: 5,
     flexDirection: 'row',
     flexGrow: 0,

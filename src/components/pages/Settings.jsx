@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: '700'
+    fontWeight: 'bold'
   },
   settingItem: {
     flexDirection: 'row',

@@ -2,6 +2,7 @@ export default {
   inputQuery: 'Input Query',
   settings: 'Settings',
   about: 'About',
+  result: 'Result',
   darkMode: 'Dark Mode',
   verbose: 'Verbose',
   language: 'Language',

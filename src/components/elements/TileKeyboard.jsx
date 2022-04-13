@@ -86,7 +86,7 @@ export default TileKeyboard = ({handleInput}) => {
   const t = context.cDict
   const color = context.cColor
 
-  const [activeSuit, setActiveSuit] = useState('pin')
+  const [activeSuit, setActiveSuit] = useState('man')
   
   return <View style={styles.keyboardContainer}>
     <TilesPane 
@@ -106,14 +106,14 @@ export default TileKeyboard = ({handleInput}) => {
 
 const styles = StyleSheet.create({
   keyboardContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    padding: 5
   },
   keyboardSuitContainer: {
     width: Math.min(SIZE * 0.6, 200),
     height: Math.min(HEIGHT * 0.4, 250),
     padding: 5,
     paddingRight: 0
-    // backgroundColor: 'skyblue'
   },
   keyboardRow: {
     flex: 1,
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     width: Math.min(SIZE * 0.4, 150),
     height: Math.min(HEIGHT * 0.4, 250),
     padding: 5,
-    // backgroundColor: 'aliceblue'
   },
 })
 

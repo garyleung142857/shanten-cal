@@ -16,7 +16,7 @@ import Icon from './src/components/elements/Icon'
 const Drawer = createDrawerNavigator()
 
 export default function App() {
-  const [locale, setLocale] = useState('tc')
+  const [locale, setLocale] = useState('en')
   const [ruleName, setRuleName] = useState('Riichi')
   const [verbose, setVerbose] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
@@ -91,6 +91,7 @@ export default function App() {
             name={'Result'}
             component={Result}
             options={{
+              title: dict['result'],
               drawerItemStyle: {display: 'none'},  // don't show in the drawer
               unmountOnBlur: true  // don't cache the results
             }}
