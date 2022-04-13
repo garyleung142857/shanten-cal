@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { StatusBar } from 'react-native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { Text } from 'react-native'
@@ -52,6 +53,7 @@ export default function App() {
 
   return (
     <AppContext.Provider value={userSettings}>
+      <StatusBar />
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{
