@@ -28,7 +28,7 @@ export const colorTheme = {
     hand: '#4262b8',
     handBg: '#1a786a',
     keyboard: '#3d555e',
-    text: '#ade0da',
+    text: '#a4bdba',
     btnLight: '#940f2e',
     btnDark: '#ffd8c9' 
   }
