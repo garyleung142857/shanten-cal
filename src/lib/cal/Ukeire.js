@@ -201,14 +201,11 @@ const analyze2 = () => {
 const sortFunc = (a, b) => {
   const aa = a.analysis
   const bb = b.analysis
-  if(aa.shanten == 0 && bb.shanten == 0){
-    if (aa.ukeire == bb.ukeire){
-      return aa.avgWithImprovment > bb.avgWithImprovment ? -1 : 1
-    }
-    return aa.ukeire > bb.ukeire ? -1 : 1
-  }
   if(aa.shanten == bb.shanten){
     if (aa.speedRef == null || bb.speedRef == null || aa.speedRef == bb.speedRef){
+      if(aa.ukeire == bb.ukeire){
+        return aa.avgWithImprovment > bb.avgWithImprovment ? -1 : 1
+      }
       return aa.ukeire > bb.ukeire ? -1 : 1
     }
     return aa.speedRef > bb.speedRef ? -1 : 1
