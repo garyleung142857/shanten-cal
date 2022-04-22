@@ -21,6 +21,7 @@ Please have the following installed:
   - Android: [Client Android](https://play.google.com/store/apps/details?id=host.exp.exponent)
   - iOS: [Client iOS](https://apps.apple.com/app/apple-store/id982107779)
 - Scan the QR code in the terminal with Expo Go App (Android) or default Apple Camera App (iOS).
+- Please make sure your computer and smartphone are on the same wifi network.
 
 ## Try the App with Android Studio Emulator
 
